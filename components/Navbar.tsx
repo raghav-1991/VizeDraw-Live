@@ -65,9 +65,12 @@ export default function Navbar() {
             })}
           </nav>
 
-          <div className="hidden lg:block">
-            <MagneticButton href="/request-demo" className="px-5 py-2.5">
-              Request demo
+          <div className="hidden items-center gap-2 lg:flex">
+            <MagneticButton href="https://app.vizedraw.com/" external variant="ghost" className="px-4 py-2.5">
+              Sign In
+            </MagneticButton>
+            <MagneticButton href="https://app.vizedraw.com/signup" external className="px-5 py-2.5">
+              Get Started
             </MagneticButton>
           </div>
 
@@ -117,10 +120,13 @@ export default function Navbar() {
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
-                className="mt-8"
+                className="mt-8 flex flex-col gap-3"
               >
-                <MagneticButton href="/request-demo" className="w-full">
-                  Request demo
+                <MagneticButton href="https://app.vizedraw.com/" external variant="outline" className="w-full">
+                  Sign In
+                </MagneticButton>
+                <MagneticButton href="https://app.vizedraw.com/signup" external className="w-full">
+                  Get Started
                 </MagneticButton>
               </motion.div>
             </div>

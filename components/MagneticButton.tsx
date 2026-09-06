@@ -13,6 +13,8 @@ type Props = {
   onClick?: () => void;
   type?: "button" | "submit";
   external?: boolean;
+  /** Plain same-tab anchor, bypassing next/link's client-side router. Use for links that must always work as a normal browser navigation. */
+  hardNav?: boolean;
 };
 
 export default function MagneticButton({
@@ -24,6 +26,7 @@ export default function MagneticButton({
   onClick,
   type = "button",
   external,
+  hardNav,
 }: Props) {
   const ref = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
@@ -74,6 +77,13 @@ export default function MagneticButton({
     if (external) {
       return (
         <a href={href} onClick={onClick} className="inline-flex" target="_blank" rel="noreferrer">
+          {inner}
+        </a>
+      );
+    }
+    if (hardNav) {
+      return (
+        <a href={href} onClick={onClick} className="inline-flex">
           {inner}
         </a>
       );

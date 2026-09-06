@@ -192,6 +192,7 @@ body {
   opacity: 0;
   transition: opacity 0.35s ease;
   z-index: 1;
+  pointer-events: none;
 }
 .card-glow:hover::before {
   opacity: 1;
@@ -209,6 +210,7 @@ body {
   opacity: 0;
   transition: opacity 0.35s ease;
   z-index: -1;
+  pointer-events: none;
 }
 .card-glow:hover::after {
   opacity: 1;

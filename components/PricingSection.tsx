@@ -6,20 +6,12 @@ import { pricingPlans } from "@/lib/content";
 import { stagger, fadeUp } from "@/lib/motion";
 import MagneticButton from "./MagneticButton";
 
-const APP = "http://localhost:5173";
-const BILLING = "http://localhost:5173/settings/billing";
+const BILLING = "https://app.vizedraw.com/settings/billing";
 
 export default function PricingSection() {
   const [plan, setPlan] = useState<"individual" | "team">("individual");
-  const [region, setRegion] = useState<"global" | "india">("global");
 
-  const fx = (usd: string) => {
-    if (region === "global" || usd === "Custom" || usd === "$0") return usd;
-    const n = Number(usd.replace("$", ""));
-    return `₹${(n * 30).toLocaleString("en-IN")}`;
-  };
-
-  const hrefFor = (name: string) => (name === "Free" ? APP : name === "Enterprise" ? "/contact" : BILLING);
+  const hrefFor = (id: string) => (id === "enterprise" ? "/contact" : `${BILLING}?plan=${id}&audience=${plan}`);
 
   return (
     <section className="mx-auto max-w-container px-5">
@@ -32,14 +24,6 @@ export default function PricingSection() {
           ]}
           value={plan}
           onChange={(v) => setPlan(v as typeof plan)}
-        />
-        <Toggle
-          options={[
-            { id: "global", label: "Global ($)" },
-            { id: "india", label: "India (₹)" },
-          ]}
-          value={region}
-          onChange={(v) => setRegion(v as typeof region)}
         />
       </div>
 
@@ -80,13 +64,13 @@ export default function PricingSection() {
               <div className="mt-5 flex items-end gap-1">
                 <AnimatePresence mode="popLayout">
                   <motion.span
-                    key={region + plan + p.name}
+                    key={plan + p.name}
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -8 }}
                     className="font-display text-4xl font-semibold tracking-tight text-vellum"
                   >
-                    {fx(p.price)}
+                    {p.price}
                   </motion.span>
                 </AnimatePresence>
                 {p.period && <span className="pb-1 text-sm text-graphite-2">{p.period}</span>}
@@ -95,8 +79,9 @@ export default function PricingSection() {
 
               <div className="mt-6">
                 <MagneticButton
-                  href={hrefFor(p.name)}
-                  external={p.name !== "Enterprise"}
+                  href={hrefFor(p.id)}
+                  external={p.id !== "enterprise"}
+                  hardNav={p.id === "enterprise"}
                   variant={p.featured ? "primary" : "outline"}
                   className="w-full"
                 >
@@ -122,7 +107,7 @@ export default function PricingSection() {
       </motion.div>
 
       <p className="mt-8 text-center text-sm text-graphite-2">
-        All plans are billed annually. Prices shown in {region === "india" ? "Indian Rupees" : "US Dollars"}. AI credits and storage packs available as add-ons.
+        All plans are billed annually in US Dollars. AI credits and storage packs available as add-ons.
       </p>
     </section>
   );

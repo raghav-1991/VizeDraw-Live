@@ -50,7 +50,7 @@ export default function HomePage() {
               </Reveal>
               <Reveal delay={0.58}>
                 <div className="mt-9 flex flex-wrap items-center gap-3">
-                  <MagneticButton href="/request-demo">Request demo</MagneticButton>
+                  <MagneticButton href="https://app.vizedraw.com/signup" external>Get Started</MagneticButton>
                   <MagneticButton href="/pricing" variant="outline">
                     View pricing
                   </MagneticButton>
